@@ -11,18 +11,19 @@ class Point:
     '''
 
     def __init__(self, x, y):
-        self.x = float(x)
-        self.y = float(y)
+        self.x = int(x)
+        self.y = int(y)
         self.position = tuple((x, y))
 
 
 
-class Line:
+class Line():
     '''
 defines a line as a two Point object with calculated attribute called length
     '''
 
     def __init__(self, p1, p2):
+
         self.p1 = p1
         self.p2 = p2
 
@@ -34,43 +35,86 @@ defines a line as a two Point object with calculated attribute called length
 
         return sqrt(x_distance + y_distance)
 
+    def points(self):
+        print("the line connects the following points: ", "(" ,self.p1.x ,",", self.p1.y ,")","," "(",self.p2.x ,",", self.p2.y ,")")
+
 
 t1 = Point(2,1)
 t2 = Point(1, 5)
 t3 = Point(-3, 9)
 t4 = Point(-2, 3)
 
-# print(t1.position, "//", t2.position, "//", t3.position, "//", t4.position)
+#print(t1.position, "---", t2.position, "---", t3.position, "---", t4.position)
 
 l1 = Line(t1, t2)
 l2 = Line(t1, t3)
 l3 = Line(t1, t4)
 l4 = Line(t2, t3)
 
-# print(l1.length(), l2.length(), l3.length(), l4.length())
+
+#print(l1.length(),l1.points() , l2.length(), l2.points(), l3.length(), l3.points(), l4.length(), l4.points())
 
 
-class Grid():
-    def __init__(self, x_axis, y_axis):
-        self.x_axis = Line(Point(-10,0), Point(10, 0))
-        self.y_axis = Line(Point(0, -10), Point(0, 10))
 
 
-def matrix_points(A):
-    for i in A[0][range(0,-1)]:
-        i = Point(A[0], A[i])
-        return print(i)
 
 
-A = np.eye(28,28)
-B = np.full((28,28), 0)
-C = np.arange(0, 28, 1)
-C1 = np.vstack(np.arange(0,1,0.1))
-plot = plt.plot(figsize=(30,30))
-plt.gray()
-plt.imshow(A)
-plt.matshow(C1, fignum= 2)
-#plt.subplot(C1, [0, 1, 0.1, 10])
+class Shapes:
+
+    def __init__(self, square, triangle, rectangle):
+
+        self.square = square
+        self.triangle = triangle
+        self.rectangle = rectangle
 
 
-plt.show()
+def get_func_deg1(p0, p1):
+    p0 = Point(p0.x, p0.y)
+    p1 = Point(p1.x, p1.y)
+    if p0.x == p1.x:
+        return None
+    a = (p0.y - p1.y)/(p0.x - p1.x)
+    b = p0.y - p0.x * a
+    return lambda x: a * x + b
+# https://stackoverflow.com/questions/46081491/how-to-generate-squares-randomly-located-equally-sized-randomly-rotated-that
+
+
+h1 = Point(0, 5)
+h2 = Point(0, 0)
+h3 = Point(5, 5)
+h4 = Point(0,0)
+
+if get_func_deg1(h1, h2):
+    print("not on the same line")
+else:
+    print("are on the same line")
+
+if get_func_deg1(h1, h3):
+    print("not on the same line")
+else:
+    print("are on the same line")
+
+if get_func_deg1(h1, h4):
+    print("not on the same line")
+else:
+    print("are on the same line")
+
+if get_func_deg1(h2, h3):
+    print("not on the same line")
+else:
+    print("are on the same line")
+
+if get_func_deg1(h2, h4):
+    print("not on the same line")
+else:
+    print("are on the same line")
+
+if get_func_deg1(h3, h4):
+    print("not on the same line")
+else:
+    print("are on the same line")
+
+if get_func_deg1(h4, h4):
+    print("not on the same line")
+else:
+    print("are on the same line")
